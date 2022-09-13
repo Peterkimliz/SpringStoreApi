@@ -16,9 +16,9 @@ public class ProductDto {
     private String productImage;
     @NotBlank(message = "product description required ")
     private String productDescription;
-    @NotBlank(message = "product quantity required ")
-    private String productQuantity;
-    @NotBlank(message = "product price required ")
+   @NotBlank(message = "product quantity required ")
+    private String  productQuantity;
+  @NotBlank(message = "product price required ")
     private String productPrice;
 
 }

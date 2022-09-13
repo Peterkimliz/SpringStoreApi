@@ -19,8 +19,8 @@ public class Product {
     private String productName;
     private String productImage;
     private String productDescription;
-    private Long productQuantity;
-    private Long productPrice;
+    private String productQuantity;
+    private String productPrice;
     private Date createdAt;
     private Date updatedAt;
     @ManyToOne

@@ -29,10 +29,12 @@ public class ProductService {
         product.setProductName(productDto.getProductName());
         product.setProductDescription(productDto.getProductDescription());
         product.setProductImage(productDto.getProductImage());
-        productDto.setProductPrice(String.valueOf(productDto.getProductPrice()));
-        productDto.setProductQuantity(productDto.getProductQuantity());
+        product.setProductPrice(productDto.getProductPrice());
+        product.setProductQuantity(productDto.getProductQuantity());
+        System.out.println("helllo"+productDto.getProductQuantity());
         product.setCustomer(customer);
         return productRepository.save(product);
+
     }
     public List<Product> getAllProducts(){
         List<Product> products= productRepository.findAll();
