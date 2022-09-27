@@ -7,33 +7,31 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
-
 @Entity
-@Data
+@Table(name = "cart")
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Table(name = "products")
-public class Product {
+public class Cart {
     @Id
     @SequenceGenerator(
-            name = "product_sequence",
-            sequenceName = "product_sequence",
+            name = "cart_sequence",
+            sequenceName = "cart_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE
-            , generator = "product_sequence"
+            , generator = "cart_sequence"
 
     )
     private Long id;
-    private String productName;
-    private String productImage;
-    private String productDescription;
-    private String productQuantity;
-    private String productPrice;
-    private Date createdAt;
-    private Date updatedAt;
     @ManyToOne
     @JoinColumn(name = "customer")
     private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "product")
+    private Product product;
+    private int quantity;
+    private Date createdAt;
+    private Date updatedAt;
 }

@@ -17,10 +17,7 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     CustomerService customerService;
-    @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody  @Validated CustomerEntity customerEntity){
-        return new ResponseEntity<Customer>(customerService.createcustomer(customerEntity), HttpStatus.CREATED);
-    }
+
 
     @GetMapping
     public ResponseEntity<List<Customer>> getCustomer(){

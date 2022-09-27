@@ -1,45 +1,36 @@
 package com.example.StoreApi.Cofiguration;
 
+import com.example.StoreApi.services.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    CustomUserDetails customUserDetails;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/api/v1/customers").permitAll()
+                .antMatchers("/api/v1/auth").permitAll()
                 .anyRequest()
-
                 .authenticated()
                 .and()
-                .httpBasic();}
-
+                .httpBasic();
+    }
 
     @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        UserDetails userDetails=User.builder()
-                .username("kimani")
-                .password(passwordEncoder.encode("kimani89"))
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(userDetails);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetails).passwordEncoder(passwordEncoder);
     }
 }
